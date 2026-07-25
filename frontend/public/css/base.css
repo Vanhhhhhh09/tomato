@@ -1,0 +1,26 @@
+:root {
+  --green-deep: #0B5D34;
+  --green-mid: #14824F;
+  --green-pale: #E7F2E9;
+  --gold: #F0A500;
+  --gold-light: #FFD666;
+  --cream: #FBF8F1;
+  --ink: #1B2A1E;
+  --ink-soft: #4C5B4F;
+  --border-soft: #DDE6DC;
+  --radius: 10px;
+  --font-display: 'Be Vietnam Pro', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-display);
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }

@@ -1,0 +1,37 @@
+doctype html
+html(lang="vi")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title #{title || 'AgriScan - Phát hiện bệnh lá cà chua'}
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet")
+    link(rel="stylesheet" href="/css/style.css")
+    block head
+
+  body
+    header.site-header
+      .header-inner
+        a.brand(href="/")
+          img.brand-logo(src="/img/logo.png" alt="Học viện Nông nghiệp Việt Nam")
+          .brand-text
+            span.brand-name AgriScan
+            span.brand-sub Học viện Nông nghiệp Việt Nam
+
+        nav.main-nav
+          a.nav-link(href="/") Phát hiện
+          a.nav-link(href="/history") Lịch sử
+          a.nav-link(href="/about") Giới thiệu
+
+    main.site-main
+      block content
+
+    footer.site-footer
+      .footer-inner
+        span Khóa luận tốt nghiệp &middot; Phát hiện và khoanh vùng bệnh lá cà chua bằng YOLO
+        span.footer-diamond &#9670;
+        span 2026
+
+    script(src="/js/upload.js")
+    block scripts

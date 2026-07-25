@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  section.hero
+    .hero-copy
+      span.eyebrow
+        span.eyebrow-mark &#9670;
+        | Ứng dụng thị giác máy tính
+      h1.hero-title Phát hiện và khoanh vùng#[br] bệnh trên lá cà chua
+      p.hero-desc
+        | Tải lên một bức ảnh lá cà chua, hệ thống sẽ dùng mô hình YOLO để
+        | nhận diện loại bệnh và khoanh vùng chính xác khu vực bị ảnh hưởng.
+
+      form.upload-form(action="/detect" method="POST" enctype="multipart/form-data")
+        label.dropzone(for="image-input" id="dropzone")
+          input#image-input.dropzone-input(type="file" name="image" accept="image/png, image/jpeg" required)
+          .dropzone-icon
+            svg(width="40" height="40" viewBox="0 0 40 40" fill="none")
+              path(d="M20 26V10M20 10L13 17M20 10L27 17" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round")
+              path(d="M8 29V31C8 32.6569 9.34315 34 11 34H29C30.6569 34 32 32.6569 32 31V29" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round")
+          p.dropzone-title Kéo thả ảnh vào đây
+          p.dropzone-sub hoặc bấm để chọn file &middot; JPG, PNG, tối đa 10MB
+          .dropzone-preview#preview-wrap
+            img#preview-img(alt="Ảnh xem trước")
+
+        button.btn-submit(type="submit") Phát hiện bệnh
+
+      p.hero-note
+        span.dot &#9670;
+        |  Kết quả chỉ mang tính hỗ trợ tham khảo, không thay thế chẩn đoán chuyên gia
+
+    .hero-visual
+      .diamond-field
+        each i in [0,1,2,3,4,5,6,7]
+          .diamond(style=`--i:${i}`)
+      .scan-frame
+        .scan-line
+        span.scan-label Đang phân tích mẫu lá
