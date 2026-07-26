@@ -326,3 +326,31 @@
   .process-steps { flex-direction: column; align-items: stretch; }
   .step-arrow { display: none; }
 }
+
+/* ---------- Loading tomato spinner ---------- */
+.btn-submit:disabled {
+  opacity: 0.9;
+  cursor: not-allowed;
+}
+
+.btn-submit-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tomato-spinner {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.tomato-body {
+  animation: ripen 1.2s ease-in-out infinite;
+}
+
+@keyframes ripen {
+  0%   { fill: #4CAF50; }
+  50%  { fill: #E53935; }
+  100% { fill: #4CAF50; }
+}

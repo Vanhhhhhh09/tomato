@@ -1,0 +1,50 @@
+extends layout
+
+block content
+  section.hero-top
+    span.eyebrow
+      span.eyebrow-mark &#9670;
+      | Lịch sử phát hiện
+    h1.hero-title Lịch sử phát hiện bệnh
+    p.hero-desc
+      | Danh sách các lần phân tích ảnh lá cà chua gần đây nhất.
+
+  if records && records.length
+    .history-grid
+      each r in records
+        a.history-card(href=`/history/${r._id}`)
+          .history-image-wrap
+            img.history-image(src=r.annotatedImagePath alt="Ảnh đã khoanh vùng")
+
+          .history-body
+            .history-diseases
+              if r.detections && r.detections.length
+                each d in r.detections
+                  span.disease-tag #{d.displayName}
+              else
+                span.disease-tag.disease-tag-empty Không phát hiện bệnh
+
+            .history-meta
+              span.history-date= new Date(r.createdAt).toLocaleString('vi-VN')
+              if r.inferenceTimeMs
+                span.history-time #{r.inferenceTimeMs}ms
+
+    if totalPages > 1
+      .pagination
+        if currentPage > 1
+          a.page-btn(href=`/history?page=${currentPage - 1}`) ← Trang trước
+        else
+          span.page-btn.page-btn-disabled ← Trang trước
+
+        span.page-info Trang #{currentPage} / #{totalPages}
+
+        if currentPage < totalPages
+          a.page-btn(href=`/history?page=${currentPage + 1}`) Trang sau →
+        else
+          span.page-btn.page-btn-disabled Trang sau →
+  else
+    .empty-state
+      span.empty-icon &#128203;
+      p.empty-title Chưa có lịch sử nào
+      p.empty-desc Hãy thử tải lên 1 ảnh lá cà chua ở trang Phát hiện để bắt đầu.
+      a.btn-retry(href="/") Đi tới trang Phát hiện

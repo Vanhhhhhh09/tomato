@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  section.hero-top
+    span.eyebrow
+      span.eyebrow-mark &#9670;
+      | Đã xảy ra sự cố
+    h1.hero-title Không thể phân tích ảnh lúc này
+    p.hero-desc= message || 'Hệ thống đang gặp sự cố, vui lòng thử lại sau ít phút.'
+
+  .empty-state
+    span.empty-icon &#9888;&#65039;
+    p.empty-title Rất tiếc vì sự bất tiện này
+    p.empty-desc Bạn có thể thử tải lại ảnh, hoặc quay lại sau nếu sự cố vẫn tiếp diễn.
+    a.btn-retry(href="/") Quay lại trang Phát hiện

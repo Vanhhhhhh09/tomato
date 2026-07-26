@@ -1,0 +1,110 @@
+/* ---------- History grid ---------- */
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.history-card {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: box-shadow 0.15s ease;
+  display: block;
+  color: inherit;
+}
+
+.history-card:hover {
+  box-shadow: 0 12px 32px -16px rgba(27, 42, 30, 0.18);
+}
+
+.history-image-wrap {
+  aspect-ratio: 4 / 3;
+  background: var(--green-pale);
+  overflow: hidden;
+}
+
+.history-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.history-body {
+  padding: 14px;
+}
+
+.history-diseases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+  min-height: 24px;
+}
+
+.disease-tag {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--green-deep);
+  background: var(--green-pale);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.disease-tag-empty {
+  color: var(--ink-soft);
+  background: var(--cream);
+}
+
+.history-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.history-time {
+  font-family: var(--font-mono);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .history-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.page-btn {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--green-deep);
+  background: var(--green-pale);
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: background 0.15s ease;
+}
+
+.page-btn:hover { background: #d9ebdb; }
+
+.page-btn-disabled {
+  color: var(--ink-soft);
+  background: var(--cream);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.page-info {
+  font-size: 13px;
+  color: var(--ink-soft);
+}

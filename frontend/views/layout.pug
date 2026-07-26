@@ -20,9 +20,8 @@ html(lang="vi")
             span.brand-sub Học viện Nông nghiệp Việt Nam
 
         nav.main-nav
-          a.nav-link.is-active(href="/") Phát hiện
-          a.nav-link(href="/history") Lịch sử
-          a.nav-link(href="/about") Giới thiệu
+          a.nav-link(href="/" class=activeNav === 'detect' && 'is-active') Phát hiện
+          a.nav-link(href="/history" class=activeNav === 'history' && 'is-active') Lịch sử
 
     main.site-main
       block content
