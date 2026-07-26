@@ -1,0 +1,27 @@
+# ---------- Node (backend) ----------
+backend/node_modules/
+backend/.env
+
+# ---------- Python (ai-service) ----------
+ai-service/venv/
+ai-service/__pycache__/
+ai-service/**/__pycache__/
+ai-service/*.pyc
+
+# ---------- Model weight (file nặng, không nên commit lên git) ----------
+ai-service/model/*.pt
+!ai-service/model/.gitkeep
+
+# ---------- Ảnh upload lúc chạy (dữ liệu runtime, không cần lưu vào git) ----------
+backend/uploads/original/*
+backend/uploads/annotated/*
+!backend/uploads/original/.gitkeep
+!backend/uploads/annotated/.gitkeep
+
+# ---------- Colab / notebook checkpoint ----------
+.ipynb_checkpoints/
+
+# ---------- OS / Editor ----------
+.DS_Store
+Thumbs.db
+.vscode/

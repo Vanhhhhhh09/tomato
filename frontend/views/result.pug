@@ -1,0 +1,50 @@
+extends layout
+
+block content
+  section.hero-top
+    span.eyebrow
+      span.eyebrow-mark &#9670;
+      | Kết quả phân tích
+    h1.hero-title Kết quả phát hiện bệnh
+    p.hero-desc
+      | Dưới đây là kết quả phân tích ảnh lá cà chua bạn vừa tải lên,
+      | được khoanh vùng bởi mô hình YOLO.
+
+  section.result-grid
+    //- Cột trái: ảnh đã khoanh vùng
+    .panel.panel-image
+      h2.panel-title Ảnh đã khoanh vùng
+      .result-image-wrap
+        img.result-image(src=annotatedImageUrl alt="Ảnh lá cà chua đã khoanh vùng bệnh")
+
+      if inferenceTimeMs
+        p.result-meta
+          span.meta-dot
+          | Thời gian xử lý: #{inferenceTimeMs}ms
+
+    //- Cột phải: danh sách bệnh phát hiện
+    .panel.panel-detections
+      h2.panel-title Bệnh được phát hiện
+
+      if detections && detections.length
+        ul.detection-list
+          each d in detections
+            li.detection-item
+              .detection-head
+                span.detection-name #{d.displayName}
+                span.detection-confidence #{Math.round(d.maxConfidence * 100)}%
+              .confidence-bar
+                .confidence-fill(style=`width: ${Math.round(d.maxConfidence * 100)}%`)
+              if d.count > 1
+                p.detection-note Phát hiện ở #{d.count} vị trí trên ảnh
+      else
+        .empty-state
+          span.empty-icon &#9989;
+          p.empty-title Không phát hiện dấu hiệu bệnh
+          p.empty-desc Lá cây trong ảnh có vẻ khỏe mạnh, không tìm thấy vùng bất thường.
+
+      p.result-note
+        span.dot &#9670;
+        |  Kết quả chỉ mang tính hỗ trợ tham khảo, không thay thế chẩn đoán chuyên gia
+
+      a.btn-retry(href="/") Phân tích ảnh khác

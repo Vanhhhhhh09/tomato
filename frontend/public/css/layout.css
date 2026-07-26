@@ -1,10 +1,13 @@
 .site-header {
   background: var(--green-deep);
   border-bottom: 3px solid var(--gold);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .header-inner {
-  max-width: 1120px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 14px 24px;
   display: flex;
@@ -19,8 +22,8 @@
 }
 
 .brand-logo {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
 }
 
@@ -44,6 +47,7 @@
 
 .main-nav {
   display: flex;
+  align-items: center;
   gap: 28px;
 }
 
@@ -58,33 +62,108 @@
 
 .nav-link:hover {
   color: var(--gold-light);
+}
+
+.nav-link.is-active {
+  color: var(--gold-light);
   border-bottom-color: var(--gold);
 }
 
 .site-main {
-  max-width: 1120px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 56px 24px 80px;
+  padding: 40px 24px 64px;
   min-height: 60vh;
 }
 
+/* ---------- Footer ---------- */
 .site-footer {
-  border-top: 1px solid var(--border-soft);
-  padding: 20px 24px;
+  background: var(--green-deep);
+  color: #E4F0E7;
+  padding-top: 48px;
 }
 
-.footer-inner {
-  max-width: 1120px;
+.footer-columns {
+  max-width: 1180px;
   margin: 0 auto;
+  padding: 0 24px 36px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.footer-brand {
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--gold-light);
+  margin-bottom: 10px;
+}
+
+.footer-heading {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--gold-light);
+  margin-bottom: 12px;
+}
+
+.footer-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #CFE6D6;
+  margin: 0;
+}
+
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-list li {
+  font-size: 13px;
+  color: #CFE6D6;
+}
+
+.footer-social {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #E4F0E7;
   display: flex;
   align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.social-icon:hover {
+  background: var(--gold);
+  color: #3A2600;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
   font-size: 12.5px;
-  color: var(--ink-soft);
+  color: #CFE6D6;
 }
 
 .footer-diamond { color: var(--gold); font-size: 8px; }
 
-@media (max-width: 860px) {
-  .hero-title { font-size: 30px; }
+@media (max-width: 780px) {
+  .footer-columns { grid-template-columns: 1fr 1fr; }
 }
