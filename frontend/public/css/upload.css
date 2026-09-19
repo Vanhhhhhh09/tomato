@@ -354,3 +354,166 @@
   50%  { fill: #E53935; }
   100% { fill: #4CAF50; }
 }
+
+/* ---------- Wizard stage (chọn cây / bộ phận) ---------- */
+.is-hidden { display: none !important; }
+
+.wizard-stage {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-top: -40px;
+  margin-bottom: -64px;
+  padding: 0 24px;
+  text-align: center;
+  overflow: hidden;
+  background: #0B2818;
+  min-height: calc(100vh - 74px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wizard-stage-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.wizard-stage-bg-half {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+}
+
+.wizard-stage-bg-half.bg-tomato { background-image: url('/img/bg-tomato.jpg'); }
+.wizard-stage-bg-half.bg-cucumber { background-image: url('/img/bg-cucumber.jpg'); }
+
+.wizard-stage-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(4, 20, 12, 0.88) 0%, rgba(4, 20, 12, 0.94) 100%);
+}
+
+.wizard-stage-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.wizard-stage-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 20px;
+}
+
+.wizard-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 0 48px;
+}
+
+.wizard-divider-line {
+  width: 48px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.wizard-divider-icon { color: var(--gold-light); }
+
+.wizard-back {
+  background: none;
+  border: none;
+  color: #E4F0E7;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.wizard-back:hover { color: var(--gold-light); }
+
+.wizard-choices {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.wizard-divider-v {
+  width: 1px;
+  height: 90px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.wizard-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+}
+
+.wizard-icon-ring {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.wizard-icon-ring.icon-tomato { background-image: url('/img/bg-tomato.jpg'); }
+.wizard-icon-ring.icon-cucumber { background-image: url('/img/bg-cucumber.jpg'); }
+
+.wizard-card:hover .wizard-icon-ring {
+  border-color: var(--gold-light);
+  transform: translateY(-4px);
+}
+
+.wizard-card:active .wizard-icon-ring { transform: translateY(-1px) scale(0.97); }
+
+.wizard-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.wizard-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green-pale);
+  color: var(--green-deep);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+.wizard-summary-icon { font-size: 15px; }
+
+@media (max-width: 600px) {
+  .wizard-stage {
+    padding: 60px 20px;
+    margin: 24px -24px 32px;
+    min-height: 50vh;
+  }
+  .wizard-stage-title { font-size: 24px; }
+  .wizard-choices { gap: 20px; }
+  .wizard-icon-ring { width: 84px; height: 84px; }
+}

@@ -3,6 +3,48 @@ document.addEventListener('DOMContentLoaded', function () {
   var input = document.getElementById('image-input');
   var previewWrap = document.getElementById('preview-wrap');
   var previewImg = document.getElementById('preview-img');
+  var wizardStage = document.getElementById('wizard-stage');
+  var stepPlant = document.getElementById('step-plant');
+  var uploadGrid = document.getElementById('step-upload-grid');
+  var plantTypeInput = document.getElementById('plant-type-input');
+  var summaryIcon = document.getElementById('summary-icon');
+  var summaryText = document.getElementById('summary-text');
+  var heroTop = document.getElementById('hero-top');
+
+  if (wizardStage && uploadGrid) {
+    function showChoiceStep(step) {
+      if (heroTop) heroTop.classList.add('is-hidden');
+      wizardStage.classList.remove('is-hidden');
+      uploadGrid.classList.add('is-hidden');
+      step.classList.remove('is-hidden');
+    }
+
+    function goToUpload(plantType, icon, label) {
+      plantTypeInput.value = plantType;
+      summaryIcon.textContent = icon;
+      summaryText.textContent = label;
+      if (heroTop) heroTop.classList.remove('is-hidden');
+      wizardStage.classList.add('is-hidden');
+      uploadGrid.classList.remove('is-hidden');
+    }
+
+    stepPlant.querySelectorAll('.wizard-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        var plant = card.getAttribute('data-plant');
+        if (plant === 'tomato') {
+          goToUpload('tomato', '🍅', 'Cà chua');
+        } else if (plant === 'cucumber') {
+          goToUpload('cucumber', '🥒', 'Dưa chuột');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-back-dynamic]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        showChoiceStep(stepPlant);
+      });
+    });
+  }
 
   if (!dropzone || !input) return;
 

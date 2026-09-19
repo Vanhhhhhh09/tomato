@@ -1,21 +1,48 @@
 extends layout
 
 block content
-  section.hero-top
+  section.hero-top.is-hidden#hero-top
     span.eyebrow
       span.eyebrow-mark &#9670;
       | Ứng dụng thị giác máy tính
-    h1.hero-title Phát hiện và khoanh vùng bệnh trên lá cà chua
+    h1.hero-title Phát hiện và chẩn đoán bệnh trên cây cà chua và dưa chuột
     p.hero-desc
-      | Tải lên ảnh lá cà chua, hệ thống sẽ dùng mô hình YOLO để nhận diện
-      | loại bệnh và khoanh vùng chính xác khu vực bị ảnh hưởng.
+      | Chọn loại cây/bộ phận, tải ảnh lên, hệ thống sẽ dùng mô hình YOLO để
+      | nhận diện loại bệnh và khoanh vùng chính xác khu vực bị ảnh hưởng.
 
-  section.grid-3col
-    //- Cột 1: Form upload
+  section.wizard-stage#wizard-stage
+    .wizard-stage-bg
+      .wizard-stage-bg-half.bg-tomato
+      .wizard-stage-bg-half.bg-cucumber
+    .wizard-stage-overlay
+    .wizard-stage-content
+      .wizard-step#step-plant
+        h2.wizard-stage-title Chọn loại cây trồng
+        .wizard-divider
+          span.wizard-divider-line
+          span.wizard-divider-icon 🌿
+          span.wizard-divider-line
+        .wizard-choices
+          button.wizard-card(type="button" data-plant="tomato")
+            span.wizard-icon-ring.icon-tomato
+            span.wizard-label Cà chua
+          span.wizard-divider-v
+          button.wizard-card(type="button" data-plant="cucumber")
+            span.wizard-icon-ring.icon-cucumber
+            span.wizard-label Dưa chuột
+
+  //- Màn hình tải ảnh + 2 panel phụ - chỉ hiện sau khi đã chọn xong ở trên
+  section.grid-3col.is-hidden#step-upload-grid
     .panel.panel-upload
-      h2.panel-title 1. Tải ảnh lá cà chua
+      button.wizard-back(type="button" data-back-dynamic="true") ← Quay lại
+
+      .wizard-summary
+        span.wizard-summary-icon#summary-icon
+        span.wizard-summary-text#summary-text
 
       form.upload-form(action="/detect" method="POST" enctype="multipart/form-data")
+        input(type="hidden" name="plant_type" id="plant-type-input")
+
         label.dropzone(for="image-input" id="dropzone")
           input#image-input.dropzone-input(type="file" name="image" accept="image/png, image/jpeg" required)
           .dropzone-icon
@@ -29,6 +56,8 @@ block content
           .dropzone-preview#preview-wrap
             img#preview-img(alt="Ảnh xem trước")
 
+          p.upload-error#upload-error
+
         button.btn-submit#submit-btn(type="submit")
           span.btn-submit-text Phát hiện bệnh
 
@@ -36,7 +65,6 @@ block content
           span.dot &#9670;
           |  Kết quả chỉ mang tính hỗ trợ tham khảo, không thay thế chẩn đoán chuyên gia
 
-    //- Cột 2: Hướng dẫn chụp ảnh
     .panel
       h2.panel-title Hướng dẫn chụp ảnh tốt
 
@@ -49,26 +77,25 @@ block content
           | Nền đơn giản, không bị rối
         li.tip-row
           span.tip-icon.icon-cam &#128247;
-          | Chụp cận cảnh lá cây
+          | Chụp cận cảnh vùng cần kiểm tra
         li.tip-row
           span.tip-icon.icon-drop &#128167;
-          | Tránh chụp khi lá bị ướt
+          | Tránh chụp khi bề mặt bị ướt
         li.tip-row
           span.tip-icon.icon-leaf &#127807;
-          | Ưu tiên chụp 1 lá/ảnh
+          | Ưu tiên chụp 1 lá hoặc 1 đoạn thân/ảnh
 
       .callout
         span.callout-icon &#128161;
         div
           p.callout-title Mẹo nhỏ
-          p.callout-desc Kết quả sẽ chính xác hơn khi ảnh chụp cận, rõ vùng lá và vết bệnh.
+          p.callout-desc Kết quả sẽ chính xác hơn khi ảnh chụp cận, rõ vùng bị ảnh hưởng.
 
-    //- Cột 3: Hệ thống sử dụng
     .panel
       h2.panel-title Hệ thống sử dụng
       p.panel-desc
-        | AgriScan ứng dụng mô hình YOLOv8 được huấn luyện trên bộ dữ liệu lá cà chua
-        | phổ biến để phát hiện:
+        | AgriScan ứng dụng mô hình YOLOv8 được huấn luyện riêng cho từng loại cây/bộ phận
+        | để phát hiện các bệnh phổ biến trên lá và thân.
 
       ul.disease-list
         li
@@ -79,7 +106,7 @@ block content
           | Bệnh đốm lá (Septoria Leaf Spot)
         li
           span.check &#10003;
-          | Bệnh xoăn lá (Yellow Leaf Curl Virus)
+          | Bệnh xoăn vàng lá (Yellow Leaf Curl Virus)
         li
           span.check &#10003;
           | Bệnh đốm bạc lá (Early Blight)
@@ -88,48 +115,4 @@ block content
           | Bệnh đốm vi khuẩn (Bacterial Spot)
         li
           span.check &#10003;
-          | Và các bệnh khác (khảm lá, mốc lá, nhện đỏ,...)
-
-  section.process
-    span.process-label Quy trình hoạt động
-
-    .process-steps
-      .step
-        .step-icon
-          svg(width="20" height="20" viewBox="0 0 24 24" fill="none")
-            path(d="M12 16V4M12 4L7 9M12 4l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round")
-            path(d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round")
-        div
-          p.step-title 1. Tải ảnh
-          p.step-desc Tải lên ảnh lá cà chua từ thiết bị của bạn
-
-      span.step-arrow &#8594;
-
-      .step
-        .step-icon
-          svg(width="20" height="20" viewBox="0 0 24 24" fill="none")
-            rect(x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="2")
-            path(d="M9 9h6v6H9z" stroke="currentColor" stroke-width="2")
-        div
-          p.step-title 2. Phân tích
-          p.step-desc AI (YOLO) phân tích và phát hiện vùng bệnh
-
-      span.step-arrow &#8594;
-
-      .step
-        .step-icon
-          svg(width="20" height="20" viewBox="0 0 24 24" fill="none")
-            path(d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round")
-        div
-          p.step-title 3. Khoanh vùng
-          p.step-desc Hệ thống khoanh vùng các vị trí bị bệnh
-
-      span.step-arrow &#8594;
-
-      .step
-        .step-icon
-          svg(width="20" height="20" viewBox="0 0 24 24" fill="none")
-            path(d="M4 20V10M12 20V4M20 20v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round")
-        div
-          p.step-title 4. Trả kết quả
-          p.step-desc Hiển thị kết quả, loại bệnh và độ tin cậy
+          | Và các bệnh khác trên lá, thân cây cà chua và dưa chuột

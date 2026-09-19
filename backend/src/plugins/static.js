@@ -9,5 +9,6 @@ export default fp(async function staticPlugin(fastify) {
   fastify.register(fastifyStatic, {
     root: path.join(__dirname, '../../../frontend/public'),
     prefix: '/',
+    maxAge: 0,
   });
 });
