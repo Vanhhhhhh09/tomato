@@ -149,3 +149,226 @@
 @media (max-width: 900px) {
   .result-grid { grid-template-columns: 1fr; }
 }
+
+/* Màu tên từng loại bệnh */
+.disease-bacterial-spot {
+    color: #FF0000;
+}
+
+.disease-early-blight {
+    color: #FFA500;
+}
+
+.disease-late-blight {
+    color: #D6A900;
+}
+
+.disease-mold-leaf {
+    color: #FF00FF;
+}
+
+.disease-mosaic-virus {
+    color: #0000FF;
+}
+
+.disease-septoria-leaf-spot {
+    color: #00A000;
+}
+
+.disease-spider-mites-leaf {
+    color: #009EAD;
+}
+
+.disease-yellow-leaf-curl-virus {
+    color: #800080;
+}
+
+
+/* ========================================
+   RESULT NOTE PANEL
+======================================== */
+
+.result-note-panel {
+  margin-top: 26px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035);
+}
+
+.result-note-panel h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--green-deep);
+  margin: 0 0 20px;
+}
+
+.result-note-panel h3::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 21px;
+  border-radius: 5px;
+  background: var(--green-mid);
+}
+
+.result-note-panel p {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin: 0 0 12px;
+  padding: 12px 15px;
+  border-radius: 9px;
+  background: #f8faf9;
+}
+
+.result-note-panel p:last-child {
+  margin-bottom: 0;
+}
+
+/* Lá có dấu hiệu bệnh */
+.result-note-panel p:nth-of-type(1) {
+  background: #fff5f4;
+  border-left: 3px solid #ef5350;
+}
+
+/* Lá chưa phát hiện bệnh */
+.result-note-panel p:nth-of-type(2) {
+  background: #f0faf5;
+  border-left: 3px solid #22a06b;
+}
+
+/* Cảnh báo giới hạn mô hình */
+.result-note-panel p:nth-of-type(3) {
+  background: #fff9ed;
+  border-left: 3px solid #e5ad42;
+  color: #80632e;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .result-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .result-stats {
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 17px 14px;
+  }
+
+  .stat-value {
+    font-size: 27px;
+  }
+
+  .result-note-panel {
+    padding: 17px;
+  }
+
+  .result-note-panel p {
+    font-size: 12.5px;
+    padding: 10px;
+  }
+}
+/* ---------- Color legend ---------- */
+.color-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 13px 15px;
+  margin-top: 15px;
+  background: var(--green-pale);
+  border-radius: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+
+.legend-color {
+  width: 13px;
+  height: 13px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.legend-diseased {
+  background: #ef4444;
+}
+
+.legend-not-detected {
+  background: #16a34a;
+}
+/* ---------- Result panels ---------- */
+.panel {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.035);
+}
+
+.panel-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 18px;
+}
+/* ---------- Result stats ---------- */
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.stat-card {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.stat-label {
+  display: block;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--green-deep);
+}
+
+.stat-danger {
+  color: #dc4444;
+}
+
+.stat-success {
+  color: #16a05d;
+}

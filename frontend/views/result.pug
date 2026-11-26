@@ -1,3 +1,4 @@
+
 extends layout
 
 block content
@@ -5,24 +6,62 @@ block content
     span.eyebrow
       span.eyebrow-mark &#9670;
       | Kết quả phân tích
+
     h1.hero-title Kết quả phát hiện bệnh
+
     p.hero-desc
-      | Dưới đây là kết quả phân tích ảnh lá cà chua bạn vừa tải lên,
-      | được khoanh vùng bởi mô hình YOLO.
+      | Ảnh lá cà chua được phân tích bằng SAM3 để phân đoạn từng lá
+      | và YOLO để phát hiện các dấu hiệu bệnh.
+
+  //- Thống kê tổng quan
+  section.result-stats
+    .stat-card
+      span.stat-label Tổng số lá
+      strong.stat-value= totalLeaves || 0
+
+    .stat-card
+      span.stat-label Lá có dấu hiệu bệnh
+      strong.stat-value.stat-danger= diseasedLeaves || 0
+
+    .stat-card
+      span.stat-label Chưa phát hiện bệnh
+      strong.stat-value.stat-success= notDetectedLeaves || 0
+
+    .stat-card
+      span.stat-label Số vị trí phát hiện bệnh
+      strong.stat-value= totalDetections || 0
 
   section.result-grid
-    //- Cột trái: ảnh đã khoanh vùng
+    //- Cột trái: ảnh đã tô màu
     .panel.panel-image
-      h2.panel-title Ảnh đã khoanh vùng
+      h2.panel-title Ảnh phân loại từng lá
+
       .result-image-wrap
-        img.result-image(src=annotatedImageUrl alt="Ảnh lá cà chua đã khoanh vùng bệnh")
+        if annotatedImageUrl
+          img.result-image(
+            src=annotatedImageUrl
+            alt="Ảnh lá cà chua đã phân loại trạng thái bệnh"
+          )
+        else
+          .empty-state
+            p Không có ảnh kết quả để hiển thị.
+
+      //- Chú thích màu
+      .color-legend
+        .legend-item
+          span.legend-color.legend-diseased
+          span Lá có dấu hiệu bệnh
+
+        .legend-item
+          span.legend-color.legend-not-detected
+          span Chưa phát hiện bệnh
 
       if inferenceTimeMs
         p.result-meta
           span.meta-dot
-          | Thời gian xử lý: #{inferenceTimeMs}ms
+          | Thời gian xử lý: #{inferenceTimeMs} ms
 
-    //- Cột phải: danh sách bệnh phát hiện
+    //- Cột phải: danh sách bệnh YOLO
     .panel.panel-detections
       h2.panel-title Bệnh được phát hiện
 
@@ -31,20 +70,45 @@ block content
           each d in detections
             li.detection-item
               .detection-head
-                span.detection-name #{d.displayName}
-                span.detection-confidence #{Math.round(d.maxConfidence * 100)}%
+                span.detection-name(
+                  class=`disease-${d.className}`
+                ) #{d.displayName}
+
+                span.detection-confidence
+                  | #{Math.round(d.maxConfidence * 100)}%
+
               .confidence-bar
-                .confidence-fill(style=`width: ${Math.round(d.maxConfidence * 100)}%`)
+                .confidence-fill(
+                  style=`width: ${Math.min(100, Math.max(0, d.maxConfidence * 100))}%`
+                )
+
               if d.count > 1
-                p.detection-note Phát hiện ở #{d.count} vị trí trên ảnh
+                p.detection-note
+                  | Phát hiện ở #{d.count} vị trí trên ảnh
+              else
+                p.detection-note
+                  | Phát hiện ở 1 vị trí trên ảnh
+
       else
         .empty-state
           span.empty-icon &#9989;
-          p.empty-title Không phát hiện dấu hiệu bệnh
-          p.empty-desc Lá cây trong ảnh có vẻ khỏe mạnh, không tìm thấy vùng bất thường.
+          p.empty-title Chưa phát hiện dấu hiệu bệnh
+          p.empty-desc
+            | Mô hình YOLO chưa phát hiện bệnh trên ảnh được phân tích.
 
       p.result-note
         span.dot &#9670;
-        |  Kết quả chỉ mang tính hỗ trợ tham khảo, không thay thế chẩn đoán chuyên gia
+        | Kết quả chỉ mang tính hỗ trợ tham khảo, không thay thế chẩn đoán chuyên gia.
 
       a.btn-retry(href="/") Phân tích ảnh khác
+
+  //- Thông tin phương pháp
+  section.result-note-panel
+    h3 Lưu ý về kết quả
+    p
+      | Lá màu đỏ: YOLO phát hiện dấu hiệu bệnh trên vùng lá.
+    p
+      | Lá màu xanh: YOLO chưa phát hiện dấu hiệu bệnh trên vùng lá.
+    p
+      | Màu xanh không đồng nghĩa với việc lá đã được xác nhận khỏe mạnh,
+      | vì mô hình đang phát triển.
